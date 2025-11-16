@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "jsx": "react",
+    "lib": ["dom", "dom.iterable", "esnext"],
     /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,

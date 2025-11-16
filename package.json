@@ -26,7 +26,9 @@
   "main": "dist/index.js",
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
+    "@types/react": "^19.2.5",
     "prettier": "^3.6.2",
+    "react": "^19.2.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
