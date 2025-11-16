@@ -1,5 +1,5 @@
 {
-  "name": "react-ripple-effect",
+  "name": "@randyglasgow/react-ripple-effect",
   "license": "MIT",
   "author": "Randy Glasgow",
   "repository": {
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/randyglasgow/react-ripple-effect/issues"
   },
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "A package for the react ripple effect",
   "keywords": [
     "react",
