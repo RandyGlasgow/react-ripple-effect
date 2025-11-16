@@ -1,0 +1,40 @@
+{
+  "name": "react-ripple-effect",
+  "license": "MIT",
+  "author": "Randy Glasgow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randyglasgow/react-ripple-effect.git"
+  },
+  "homepage": "https://github.com/randyglasgow/react-ripple-effect",
+  "bugs": {
+    "url": "https://github.com/randyglasgow/react-ripple-effect/issues"
+  },
+  "version": "1.0.0",
+  "description": "A package for the react ripple effect",
+  "keywords": [
+    "react",
+    "ripple",
+    "effect",
+    "react-ripple-effect",
+    "hooks"
+  ],
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "ci": "npm run build && npm run check-format && npm run test",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "test": "vitest run",
+    "dev": "vitest"
+  }
+}
