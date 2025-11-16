@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.1.0
+
+### Minor Changes
+
+- 6aea8dc: exposes api for event provider and hooks
+
 ## 1.0.0
 
 ### Major Changes
