@@ -4,7 +4,7 @@
   "author": "Randy Glasgow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/randyglasgow/react-ripple-effect.git"
+    "url": "git+https://github.com/randyglasgow/react-ripple-effect.git"
   },
   "homepage": "https://github.com/randyglasgow/react-ripple-effect",
   "bugs": {
