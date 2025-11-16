@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.0.0
+
+### Major Changes
+
+- 95885e1: First implementation of the event driver
+
 ## 0.0.3
 
 ### Patch Changes
