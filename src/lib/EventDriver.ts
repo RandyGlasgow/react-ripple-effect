@@ -1,3 +1,3 @@
 export class EventDriver {
-  private test: string = "test";
+  private test: string = 'test';
 }

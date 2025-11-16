@@ -1,3 +1,3 @@
-import { EventDriver } from "./lib/EventDriver.js";
+import { EventDriver } from './lib/EventDriver.js';
 
 export { EventDriver };
