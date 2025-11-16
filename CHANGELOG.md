@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.2.0
+
+### Minor Changes
+
+- 6bf5fdf: change out for driver class
+
 ## 1.1.0
 
 ### Minor Changes
