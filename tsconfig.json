@@ -7,7 +7,6 @@
     "skipLibCheck": true,
     "target": "es2022",
     "allowJs": true,
-    "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
@@ -18,7 +17,7 @@
     "noImplicitOverride": true,
 
     /* If transpiling with TypeScript: */
-    "module": "NodeNext",
+    "module": "ESNext",
     "outDir": "dist",
     "rootDir": "src",
     "sourceMap": true,
