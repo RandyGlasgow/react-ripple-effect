@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.2.1
+
+### Patch Changes
+
+- d7f35ce: patch
+
 ## 1.2.0
 
 ### Minor Changes
