@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 0.0.3
+
+### Patch Changes
+
+- 12b7114: Updates the context
+
 ## 0.0.2
 
 ### Patch Changes
