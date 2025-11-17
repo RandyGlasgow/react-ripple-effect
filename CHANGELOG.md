@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.4.1
+
+### Patch Changes
+
+- 9b84067: updated build
+
 ## 1.4.0
 
 ### Minor Changes
