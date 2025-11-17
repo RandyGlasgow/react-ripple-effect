@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.3.0
+
+### Minor Changes
+
+- 05fad4d: add a test hook
+
 ## 1.2.2
 
 ### Patch Changes
