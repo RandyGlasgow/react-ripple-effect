@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 1.2.2
+
+### Patch Changes
+
+- cd6a782: test
+
 ## 1.2.1
 
 ### Patch Changes
