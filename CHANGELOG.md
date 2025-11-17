@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 0.0.2
+
+### Patch Changes
+
+- df429e7: Initial pass
+
 ## 1.4.1
 
 ### Patch Changes
