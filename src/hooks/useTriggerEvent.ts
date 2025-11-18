@@ -1,4 +1,4 @@
-import { useEventContext } from '../context/EventContext.js';
+import { useEventContext } from '../context/EventContext';
 import type { EventMap } from '../types.js';
 
 /**

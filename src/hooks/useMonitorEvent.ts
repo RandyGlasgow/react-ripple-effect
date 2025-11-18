@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useEventContext } from '../context/EventContext.js';
+import { useEventContext } from '../context/EventContext';
 import type {
   EnhancedMonitorEventHandlers,
   EventCallback,
