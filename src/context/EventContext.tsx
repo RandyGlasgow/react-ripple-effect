@@ -1,18 +1,15 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React from 'react';
 import { EventDriver } from '../lib/EventDriver';
-import type { EventContextValue, EventProviderProps } from '../types';
+import type {
+  EventCallback,
+  EventContextValue,
+  EventProviderProps,
+} from '../types';
 
-const EventContext = createContext<EventContextValue | null>(null);
+const EventContext = React.createContext<EventContextValue | null>(null);
 
 export const useEventContext = (): EventContextValue => {
-  const context = useContext(EventContext);
+  const context = React.useContext(EventContext);
   if (!context) {
     throw new Error(
       'useTriggerEvent and useMonitorEvent must be used within an EventProvider',
@@ -21,80 +18,41 @@ export const useEventContext = (): EventContextValue => {
   return context;
 };
 
-export const EventProvider: React.FC<EventProviderProps> = ({
+export const EventProvider = ({
   children,
   maxListeners = 100,
   debug = false,
-}) => {
-  const eventDriverRef = useRef<EventDriver>(new EventDriver());
+  client,
+}: EventProviderProps) => {
+  const listenersRef = React.useRef<EventDriver>(client);
 
-  const subscribe = useCallback(
-    (key: string, callback: (...args: any[]) => void) => {
-      const eventDriver = eventDriverRef.current;
-
-      // Check max listeners limit before subscribing
-      if (maxListeners > 0) {
-        const currentCount = eventDriver.getListenerCount(key);
-        if (currentCount >= maxListeners) {
-          const warning = `EventProvider.subscribe: Maximum listeners (${maxListeners}) exceeded for event "${key}". This may indicate a memory leak.`;
-          console.warn(warning);
-          if (debug) {
-            console.trace(warning);
-          }
-        }
-      }
-
-      // Delegate to EventDriver (it handles validation internally)
-      return eventDriver.subscribe(key, callback);
+  const subscribe = React.useCallback(
+    (key: string, callback: EventCallback) => {
+      return listenersRef.current.subscribe(key, callback);
     },
-    [maxListeners, debug],
+    [],
   );
 
-  const trigger = useCallback(
-    (key: string, ...args: any[]) => {
-      const eventDriver = eventDriverRef.current;
+  const trigger = React.useCallback((key: string, ...args: any[]) => {
+    return listenersRef.current.trigger(key, ...args);
+  }, []);
 
-      // Debug logging before triggering
-      if (debug) {
-        const listenerCount = eventDriver.getListenerCount(key);
-        if (listenerCount > 0) {
-          console.log(
-            `[EventProvider] Triggering event "${key}" with ${listenerCount} listener(s)`,
-            args,
-          );
-        } else {
-          console.log(
-            `[EventProvider] Event "${key}" triggered but no listeners registered`,
-          );
-        }
-      }
+  const getListenerCount = React.useCallback((key: string): number => {
+    return listenersRef.current.getListenerCount(key);
+  }, []);
 
-      // Delegate to EventDriver (it handles validation and error isolation internally)
-      eventDriver.trigger(key, ...args);
+  const hasListeners = React.useCallback(
+    (key: string): boolean => {
+      return listenersRef.current.hasListeners(key);
     },
-    [debug],
+    [getListenerCount],
   );
 
-  const getListenerCount = useCallback((key: string): number => {
-    return eventDriverRef.current.getListenerCount(key);
+  const getEventKeys = React.useCallback((): string[] => {
+    return listenersRef.current.getEventKeys();
   }, []);
 
-  const hasListeners = useCallback((key: string): boolean => {
-    return eventDriverRef.current.hasListeners(key);
-  }, []);
-
-  const getEventKeys = useCallback((): string[] => {
-    return eventDriverRef.current.getEventKeys();
-  }, []);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      eventDriverRef.current.cleanup();
-    };
-  }, []);
-
-  const value = useMemo<EventContextValue>(
+  const value = React.useMemo<EventContextValue>(
     () => ({
       subscribe,
       trigger,

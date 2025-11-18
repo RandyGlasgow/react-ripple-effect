@@ -3,16 +3,14 @@ import type { EventListeners } from '../types.js';
 export class EventDriver {
   private listeners: EventListeners = new Map();
 
-  constructor() {}
-
-  private _invalidateKey(key: string) {
+  _invalidateKey(key: string) {
     if (!key || typeof key !== 'string') {
       throw new Error(
         `Invalid event key. Expected a non-empty string, got "${key}".`,
       );
     }
   }
-  private _invalidateCallback(callback: (...args: any[]) => void) {
+  _invalidateCallback(callback: (...args: any[]) => void) {
     if (typeof callback !== 'function') {
       throw new Error(
         `Invalid callback. Expected a function, got "${typeof callback}".`,

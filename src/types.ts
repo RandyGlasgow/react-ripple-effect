@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { EventDriver } from './lib/EventDriver';
 
 // Legacy types for backward compatibility
 export type EventCallback = (...args: any[]) => void;
@@ -51,6 +52,7 @@ export interface EventContextValue {
 
 export interface EventProviderProps {
   children: ReactNode;
+  client: EventDriver;
   /**
    * Maximum number of listeners allowed per event key.
    * Defaults to 100. Set to 0 for unlimited.
