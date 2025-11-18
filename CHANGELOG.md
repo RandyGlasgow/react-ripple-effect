@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 0.0.4
+
+### Patch Changes
+
+- bf55ddd: update driver and extract init logic
+
 ## 0.0.3
 
 ### Patch Changes
