@@ -39,15 +39,15 @@ export interface EventContextValue {
   /**
    * Get the number of listeners for a specific event key
    */
-  getListenerCount?: (key: string) => number;
+  getListenerCount: (key: string) => number;
   /**
    * Check if there are any listeners for a specific event key
    */
-  hasListeners?: (key: string) => boolean;
+  hasListeners: (key: string) => boolean;
   /**
    * Get all event keys that have listeners
    */
-  getEventKeys?: () => string[];
+  getEventKeys: () => string[];
 }
 
 export interface EventProviderProps {
