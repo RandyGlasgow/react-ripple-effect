@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
     "jsx": "react",
-    "lib": ["dom", "dom.iterable", "esnext"],
     /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -24,5 +24,13 @@
 
     /* AND if you're building for a library: */
     "declaration": true
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "playground",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }
