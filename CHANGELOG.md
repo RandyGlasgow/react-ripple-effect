@@ -1,5 +1,11 @@
 # react-ripple-effect
 
+## 0.0.5
+
+### Patch Changes
+
+- 4d83aca: update tests, update dev packages
+
 ## 0.0.4
 
 ### Patch Changes
