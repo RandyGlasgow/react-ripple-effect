@@ -13,6 +13,7 @@ December 2024
 ### 1. EventDriver Core (`src/lib/EventDriver.ts`)
 
 **Before:**
+
 ```typescript
 trigger(key: string, ...args: any[]): void {
   // Synchronous execution only
@@ -23,11 +24,12 @@ trigger(key: string, ...args: any[]): void {
 ```
 
 **After:**
+
 ```typescript
 trigger(key: string, ...args: any[]): Promise<void> {
   // Handles both sync and async callbacks
   const promises: Promise<void>[] = [];
-  
+
   listeners.forEach((callback) => {
     const result = callback(...args);
     if (result instanceof Promise) {
@@ -36,8 +38,8 @@ trigger(key: string, ...args: any[]): Promise<void> {
       }));
     }
   });
-  
-  return promises.length > 0 
+
+  return promises.length > 0
     ? Promise.all(promises).then(() => undefined)
     : Promise.resolve();
 }
@@ -212,8 +214,8 @@ await promise; // Type-safe awaiting
 ## Future Considerations
 
 Potential future enhancements:
+
 - Sequential async execution option (currently all async callbacks run concurrently)
 - Error aggregation/collection for async callbacks
 - Timeout support for async callbacks
 - Progress tracking for long-running async callbacks
-
