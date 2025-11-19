@@ -28,5 +28,5 @@ export function useTriggerEvent<TEventMap extends EventMap = EventMap>() {
   return trigger as <TKey extends keyof TEventMap>(
     key: TKey,
     ...args: TEventMap[TKey] extends undefined ? [] : [data: TEventMap[TKey]]
-  ) => void;
+  ) => Promise<void>;
 }

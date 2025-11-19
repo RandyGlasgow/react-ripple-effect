@@ -33,9 +33,12 @@ export const EventProvider = ({
     [],
   );
 
-  const trigger = React.useCallback((key: string, ...args: any[]) => {
-    return listenersRef.current.trigger(key, ...args);
-  }, []);
+  const trigger = React.useCallback(
+    (key: string, ...args: any[]): Promise<void> => {
+      return listenersRef.current.trigger(key, ...args);
+    },
+    [],
+  );
 
   const getListenerCount = React.useCallback((key: string): number => {
     return listenersRef.current.getListenerCount(key);

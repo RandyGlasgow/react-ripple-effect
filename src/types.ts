@@ -2,11 +2,11 @@ import type { ReactNode } from 'react';
 import type { EventDriver } from './lib/EventDriver';
 
 // Legacy types for backward compatibility
-export type EventCallback = (...args: any[]) => void;
+export type EventCallback = (...args: any[]) => void | Promise<void>;
 export type EventListeners = Map<string, Set<EventCallback>>;
 
 // Generic types for type-safe event handling
-export type TypedEventCallback<T = any> = (data: T) => void;
+export type TypedEventCallback<T = any> = (data: T) => void | Promise<void>;
 export type EventMap = Record<string, any>;
 
 // Extract event payload type from EventMap
@@ -29,13 +29,13 @@ export interface TypedEventContextValue<TEventMap extends EventMap = EventMap> {
   trigger: <TKey extends keyof TEventMap>(
     key: TKey,
     ...args: TEventMap[TKey] extends undefined ? [] : [data: TEventMap[TKey]]
-  ) => void;
+  ) => Promise<void>;
 }
 
 // Legacy interface for backward compatibility
 export interface EventContextValue {
   subscribe: (key: string, callback: EventCallback) => () => void;
-  trigger: (key: string, ...args: any[]) => void;
+  trigger: (key: string, ...args: any[]) => Promise<void>;
   /**
    * Get the number of listeners for a specific event key
    */
