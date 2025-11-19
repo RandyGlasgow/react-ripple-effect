@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/randyglasgow/react-ripple-effect/issues"
   },
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A package for the react ripple effect",
   "keywords": [
     "react",
