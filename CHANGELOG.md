@@ -1,5 +1,76 @@
 # react-ripple-effect
 
+## 0.0.6
+
+### Minor Changes
+
+- **Async Callback Support**: Updated EventDriver to handle awaitable async functions
+
+#### Summary
+
+The EventDriver now supports both synchronous and asynchronous callbacks seamlessly. The `trigger()` method returns a `Promise<void>` that resolves when all async callbacks complete, while maintaining full backward compatibility with existing synchronous callbacks.
+
+#### Changes
+
+- **EventDriver.trigger()**: Now returns `Promise<void>` and handles both sync and async callbacks
+  - Sync callbacks execute immediately as before
+  - Async callbacks are detected and awaited concurrently using `Promise.all()`
+  - Returns a resolved promise immediately if all callbacks are sync
+  - Returns a promise that resolves when all async callbacks complete
+
+- **Type Updates**:
+  - `EventCallback`: Now accepts `(...args: any[]) => void | Promise<void>`
+  - `TypedEventCallback`: Now accepts `(data: T) => void | Promise<void>`
+  - `EventContextValue.trigger`: Now returns `Promise<void>`
+  - `TypedEventContextValue.trigger`: Now returns `Promise<void>`
+  - `useTriggerEvent`: Return type updated to `Promise<void>`
+
+- **Error Handling**:
+  - Sync callback errors are caught and logged (existing behavior)
+  - Async callback errors are caught, logged, and don't prevent other callbacks from executing
+
+#### Usage Examples
+
+```typescript
+// Sync callback (backward compatible)
+eventDriver.subscribe('event', (data) => {
+  console.log(data);
+});
+await eventDriver.trigger('event', 'data'); // Returns immediately
+
+// Async callback
+eventDriver.subscribe('event', async (data) => {
+  await fetch('/api', { body: data });
+});
+await eventDriver.trigger('event', 'data'); // Waits for async callback
+
+// Mixed sync and async
+eventDriver.subscribe('event', (data) => console.log('sync', data));
+eventDriver.subscribe('event', async (data) => {
+  await saveToDatabase(data);
+});
+await eventDriver.trigger('event', 'data'); // Waits for async, sync executes immediately
+```
+
+#### Migration Guide
+
+No breaking changes for existing code. The `trigger()` method now returns a Promise, but you can still call it without awaiting:
+
+```typescript
+// Still works (fire-and-forget)
+trigger('event', data);
+
+// Now you can also await it
+await trigger('event', data);
+```
+
+#### Testing
+
+- Added comprehensive test suite for async callbacks
+- Tests for mixed sync/async scenarios
+- Tests for error handling in both sync and async callbacks
+- All existing tests continue to pass (54 tests total)
+
 ## 0.0.5
 
 ### Patch Changes

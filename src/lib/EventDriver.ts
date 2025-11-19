@@ -10,7 +10,7 @@ export class EventDriver {
       );
     }
   }
-  _invalidateCallback(callback: (...args: any[]) => void) {
+  _invalidateCallback(callback: (...args: any[]) => void | Promise<void>) {
     if (typeof callback !== 'function') {
       throw new Error(
         `Invalid callback. Expected a function, got "${typeof callback}".`,
@@ -18,7 +18,7 @@ export class EventDriver {
     }
   }
 
-  subscribe(key: string, callback: (...args: any[]) => void) {
+  subscribe(key: string, callback: (...args: any[]) => void | Promise<void>) {
     this._invalidateKey(key);
     this._invalidateCallback(callback);
     const listeners = this.listeners.get(key);
@@ -41,21 +41,42 @@ export class EventDriver {
     };
   }
 
-  trigger(key: string, ...args: any[]) {
+  trigger(key: string, ...args: any[]): Promise<void> {
     this._invalidateKey(key);
 
     const listeners = this.listeners.get(key);
     if (!listeners) {
-      return;
+      return Promise.resolve();
     }
+
+    const promises: Promise<void>[] = [];
 
     listeners.forEach((callback) => {
       try {
-        callback(...args);
+        const result = callback(...args);
+        // Check if the callback returned a Promise
+        if (result instanceof Promise) {
+          promises.push(
+            result.catch((error) => {
+              console.error(
+                `Error in async callback for event "${key}":`,
+                error,
+              );
+            }),
+          );
+        }
       } catch (error) {
         console.error(`Error in callback for event "${key}":`, error);
       }
     });
+
+    // If there are any async callbacks, wait for them all to complete
+    if (promises.length > 0) {
+      return Promise.all(promises).then(() => undefined);
+    }
+
+    // All callbacks were synchronous, return resolved promise immediately
+    return Promise.resolve();
   }
 
   cleanup() {
